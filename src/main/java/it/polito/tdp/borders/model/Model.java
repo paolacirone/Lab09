@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
 
 import it.polito.tdp.borders.db.BordersDAO;
@@ -61,6 +62,13 @@ public class Model{
 	
 	public Set<Country> elencoStati(){
 		return  this.grafo.vertexSet();
+	}
+	
+	public int numeroComponentiConnesse() {
+	
+		ConnectivityInspector<Country, DefaultEdge> c = new ConnectivityInspector<>(grafo);
+	    return c.connectedSets().size();
+	    
 	}
 }
 

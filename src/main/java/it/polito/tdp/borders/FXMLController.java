@@ -33,6 +33,7 @@ public class FXMLController {
     @FXML
     void doCalcolaConfini(ActionEvent event) {
     	
+    	txtResult.clear();
     	int anno=0; 
     	try{
     		anno= Integer.parseInt(this.txtAnno.getText()); 
@@ -56,6 +57,7 @@ public class FXMLController {
     		}
     	}
     	
+    	this.txtResult.appendText("\nNumero componenti connesse: "+model.numeroComponentiConnesse());
     	
 
     }
