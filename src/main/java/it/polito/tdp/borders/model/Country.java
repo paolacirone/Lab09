@@ -71,7 +71,7 @@ public class Country implements Comparable<Country> {
 
 	@Override
 	public String toString() {
-		return codice + "   " + nome + "   " + abbreviazione + "  " +contatore;
+		return codice + "   " + nome + "   " + abbreviazione;
 	}
 
 

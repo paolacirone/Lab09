@@ -7,10 +7,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+
 import it.polito.tdp.borders.model.Country;
 import it.polito.tdp.borders.model.Model;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -29,6 +35,12 @@ public class FXMLController {
 
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
+    
+    @FXML
+    private ComboBox<Country> comboBox;
+
+    @FXML
+    private Button bttnTrova;
 
     @FXML
     void doCalcolaConfini(ActionEvent event) {
@@ -50,23 +62,36 @@ public class FXMLController {
     	
     	this.model.creaGrafo(anno);
     	
-    	
-    	for(Country c: model.elencoStati() ) {
+    	for(Country c: this.model.elencoStati()) {
     		if(c.getContatore()>0) {
-    		txtResult.appendText(c.toString()+"\n");
+    		txtResult.appendText(c.toString()+" "+c.getContatore()+"\n");
     		}
     	}
     	
     	this.txtResult.appendText("\nNumero componenti connesse: "+model.numeroComponentiConnesse());
-    	
-
+    	this.comboBox.getItems().addAll(model.tutte());
     }
+    @FXML
+    void doTrovaiVicini(ActionEvent event) {
+
+    	this.txtResult.clear();
+    	Country c = this.comboBox.getValue();
+    	
+    	//this.txtResult.appendText(" "+this.model.elencoVicini(c));
+    	//this.txtResult.appendText(" "+this.model.trovaVicini(c));
+    	//this.txtResult.appendText(" "+this.model.getVicini(c));
+    	this.txtResult.appendText(" "+this.model.getViciniDFI(c));
+    	//this.txtResult.appendText(""+model.lista(c));
+    }
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert txtAnno != null : "fx:id=\"txtAnno\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
-
+ 
+       assert comboBox != null : "fx:id=\"comboBox\" was not injected: check your FXML file 'Scene.fxml'.";
+       assert bttnTrova != null : "fx:id=\"bttnTrova\" was not injected: check your FXML file 'Scene.fxml'.";
     }
     
     public void setModel(Model model) {
